@@ -5,15 +5,20 @@ import db from './config/db.js'
 //Crear la app
 const app = express()
 
-//conexion a la base de datos
+//Habilitar lectura de datos de formularios
+app.use(express.urlencoded({extended: true}))
+
+
+//Conexion a la base de datos
 try{
     await db.authenticate();
+    db.sync()
     console.log('Conexion correcta a la base de datos')
 }catch (error){
     console.log(error)
 }
 
-//habilitar pug
+//Habilitar pug
 app.set('view engine', 'pug')
 app.set('views', './views')
 
